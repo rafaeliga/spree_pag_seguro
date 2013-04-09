@@ -6,6 +6,14 @@ module Spree
     preference :email, :string
     preference :token, :string
     has_many :payments, :as => :source
+  
+    def payment_profiles_supported?
+      true
+    end
+
+    def process_before_confirm?
+      true
+    end
     
     def actions
       %w{capture void}
