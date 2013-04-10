@@ -38,8 +38,7 @@ module Spree
     end
     
     def payment_source_class
-      #self.class
-      PagSeguroPayment
+      self.class
     end
 
     def source_required?
