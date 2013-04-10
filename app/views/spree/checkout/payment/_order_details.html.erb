@@ -3,8 +3,9 @@
     Seu pagamento foi aprovado pelo PagSeguro através da transação de código:
 		<%= @order.payment_notifications.last.transaction_id %>
   <% else %>
-    Aguardando liberação de pagamento pelo PagSeguro.<br />
-    Clique na imagem abaixo para realizar o pagamento.<br />
-    <%= link_to image_tag("pag_seguro_checkout.gif"), PagSeguro::Payment.checkout_payment_url(@order.payment_method.code(@order.payment)) %>
+    Clique na imagem abaixo para realizar o pagamento.<br /><br />
+    <%= link_to image_tag("https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/205x30-comprar.gif"), PagSeguro::Payment.checkout_payment_url(@order.payment_method.code(@order.payment)) %>
+		<br /><br />
+    Caso já tenha efetuado o pagamento, em breve seremos notificados pelo PagSeguro e atualizaremos esta página.</p>
   <% end %>
 <% end %>
