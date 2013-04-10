@@ -15,7 +15,7 @@ module Spree
         extra_amount: format("%.2f", payment.order.adjustments.credit.sum(:amount)),
         id: order.id)
 
-      pag_seguro_payment.items = order_items + order_charges
+      pag_seguro_payment.items = order_items(order) + order_charges(order)
       
       pag_seguro_payment.sender = ::PagSeguro::Sender.new(
                                     name: order.name, 
@@ -35,8 +35,8 @@ module Spree
       self.save
     end
     
-    def order_items
-      payment.order.line_items.map do |item|
+    def order_items(order)
+      order.line_items.map do |item|
         pag_seguro_item = ::PagSeguro::Item.new
         pag_seguro_item.id = item.id
         pag_seguro_item.description = item.product.name
@@ -48,8 +48,8 @@ module Spree
       end
     end
       
-    def order_charges
-      payment.order.adjustments.positive_charge.map do |item|
+    def order_charges(order)
+      order.adjustments.positive_charge.map do |item|
         pag_seguro_item = ::PagSeguro::Item.new
         pag_seguro_item.id = item.id
         pag_seguro_item.description = item.label
