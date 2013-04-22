@@ -1,10 +1,9 @@
 <% if @order.payment_method.instance_of? Spree::PaymentMethod::PagSeguroMethod %>
   <% if @order.payment.completed? && @order.payment_notifications.present? %>
-    Seu pagamento foi aprovado pelo PagSeguro através da transação de código:
+    Seu pagamento foi aprovado pelo PagSeguro através da transação de código:<br /><br />
 		<%= @order.payment_notifications.last.transaction_id %>
   <% else %>
-    Clique na imagem abaixo para realizar o pagamento.<br /><br />
-    <%= link_to image_tag("https://p.simg.uol.com.br/out/pagseguro/i/botoes/pagamentos/205x30-comprar.gif"), PagSeguro::Payment.checkout_payment_url(@order.payment_method.code(@order.payment)) %>
+		Estamos aguardando a confirmação do pagamento para entregar o seu pedido.
 		<br /><br />
     Caso já tenha efetuado o pagamento, em breve seremos notificados pelo PagSeguro e atualizaremos esta página.</p>
   <% end %>

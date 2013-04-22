@@ -13,6 +13,7 @@ module Spree
         Order.pag_seguro_payment_method.preferred_token,
         redirect_url: redirect_url,
         extra_amount: format("%.2f", payment.order.adjustments.credit.sum(:amount)),
+        max_age: Order.pag_seguro_payment_method.preferred_max_age,
         id: order.id)
 
       pag_seguro_payment.items = order_items(order) + order_charges(order)
@@ -20,14 +21,16 @@ module Spree
       pag_seguro_payment.sender = ::PagSeguro::Sender.new(
                                     name: order.name, 
                                     email: order.email, 
-                                    phone_number: order.ship_address.phone)
+                                    phone_number: order.ship_address.phone,
+                                    phone_ddd: order.ship_address.phone_ddd)
                                     
       pag_seguro_payment.shipping = ::PagSeguro::Shipping.new(
                                     type: ::PagSeguro::Shipping::UNIDENTIFIED, 
                                     state: order.ship_address.state.abbr, 
                                     city: order.ship_address.city, 
                                     postal_code: order.ship_address.zipcode, 
-                                    street: order.ship_address.address1, 
+                                    street: order.ship_address.address1,
+                                    number: order.ship_address.address_number,
                                     complement: order.ship_address.address2)
                                     
       self.code = pag_seguro_payment.code

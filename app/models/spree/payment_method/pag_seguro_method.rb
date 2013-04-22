@@ -5,6 +5,7 @@ module Spree
     
     preference :email, :string
     preference :token, :string
+    preference :max_age, :string
     has_many :payments, :as => :source
   
     def actions
