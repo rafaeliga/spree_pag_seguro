@@ -1,10 +1,10 @@
-<% if @order.payment_method.instance_of? Spree::PaymentMethod::PagSeguroMethod %>
-  <% if @order.payment.completed? && @order.payment_notifications.present? %>
+<% payment = @order.payments.first %>
+<% if payment && (payment.payment_method.instance_of? Spree::PaymentMethod::PagSeguroMethod) %>
+  <% if payment.completed? && @order.payment_notifications.present? %>
     Seu pagamento foi aprovado pelo PagSeguro através da transação de código:<br /><br />
 		<%= @order.payment_notifications.last.transaction_id %>
   <% else %>
-		Estamos aguardando a confirmação do pagamento para entregar o seu pedido.
-		<br /><br />
+		Estamos aguardando a confirmação do pagamento para entregar o seu pedido.<br /><br />
     Caso já tenha efetuado o pagamento, em breve seremos notificados pelo PagSeguro e atualizaremos esta página.</p>
   <% end %>
 <% end %>
