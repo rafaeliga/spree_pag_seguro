@@ -12,7 +12,7 @@ module Spree
         Order.pag_seguro_payment_method.preferred_email,
         Order.pag_seguro_payment_method.preferred_token,
         redirect_url: redirect_url,
-        extra_amount: format("%.2f", payment.order.adjustments.credit.sum(:amount)),
+        extra_amount: format("%.2f", payment.order.adjustments.eligible.credit.sum(:amount)),
         max_age: Order.pag_seguro_payment_method.preferred_max_age,
         id: order.id)
 
@@ -52,7 +52,7 @@ module Spree
     end
       
     def order_charges(order)
-      order.adjustments.positive_charge.map do |item|
+      order.adjustments.eligible.positive_charge.map do |item|
         pag_seguro_item = ::PagSeguro::Item.new
         pag_seguro_item.id = item.id
         pag_seguro_item.description = item.label
