@@ -9,14 +9,10 @@
     </tr>
     <tr>
       <td>
-        <% if payment.order.payment_notifications.present? %>
-          <%= payment.order.payment_notifications.last.transaction_id  %>
-        <% else %>
-          Sem Código
-        <% end %>
-      </td>
-      <td><%= l payment.source.date %></td>
-      <td><%= link_to PagSeguro::Payment.checkout_payment_url(payment.source.code) %></td>
+        <%= payment.order.payment_notifications.present? ? payment.order.payment_notifications.last.transaction_id : "Sem Código" %></td>
+      <td><%= payment.order.payment_notifications.present? ? l(payment.order.payment_notifications.first.created_at) : "" %></td>
+			<% url = PagSeguro::Payment.checkout_payment_url(payment.payment_method.code(payment)) %>
+      <td><%= link_to url, url %></td>
     </tr>
   </table>
 
