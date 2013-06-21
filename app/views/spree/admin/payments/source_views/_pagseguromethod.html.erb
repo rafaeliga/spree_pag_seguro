@@ -3,14 +3,9 @@
 
   <table class="index">
     <tr>
-      <th>Código de Transação no Pagseguro:</th>
-      <th>Data de criação do pagamento:</th>
       <th>URL para efetuar o pagamento</th>
     </tr>
     <tr>
-      <td>
-        <%= payment.order.payment_notifications.present? ? payment.order.payment_notifications.last.transaction_id : "Sem Código" %></td>
-      <td><%= payment.order.payment_notifications.present? ? l(payment.order.payment_notifications.first.created_at) : "" %></td>
 			<% url = PagSeguro::Payment.checkout_payment_url(payment.payment_method.code(payment)) %>
       <td><%= link_to url, url %></td>
     </tr>
@@ -18,15 +13,23 @@
 
   <table class="index">
     <tr>
-      <th><%= Spree::PaymentNotification.human_attribute_name :params %></th>
+			<th><%= Spree::PaymentNotification.human_attribute_name :date %></th>
+			<th>Pagamento</th>
       <th><%= Spree::PaymentNotification.human_attribute_name :status %></th>
       <th><%= Spree::PaymentNotification.human_attribute_name :transaction_id %></th>
       <th><%= Spree::PaymentNotification.human_attribute_name :notification_code %></th>
     </tr>
+		<% if payment.payment_method.instance_of? Spree::PaymentMethod::PagSeguroMethod %>
+			<% email = Spree::Order.pag_seguro_payment_method.preferred_email %>
+			<% token = Spree::Order.pag_seguro_payment_method.preferred_token %>
+			<% query_pagseguro = true %>
+		<% end %>
 		<% payment.order.payment_notifications.each do |notification| %>
+			<% query = PagSeguro::Query.new(email, token, notification.transaction_id) if query_pagseguro && notification.transaction_id %>
 			<tr>
-	      <td><%= notification.params %></td>
-	      <td><%= notification.status %></td>
+				<td><%= pretty_time(notification.created_at) %></td>
+				<td><%= query.payment_method.name if query %></td>
+	      <td><%= t("pagseguro_status.#{PagSeguro::Transaction.status_for(notification.status.to_i)}") %></td>
 	      <td><%= notification.transaction_id %></td>
 	      <td><%= notification.notification_code %></td>
 			</tr>
