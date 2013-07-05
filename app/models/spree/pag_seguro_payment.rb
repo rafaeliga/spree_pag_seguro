@@ -6,7 +6,7 @@ module Spree
     def process!(payment)
       order = payment.order
       
-      redirect_url = Rails.env.development? ? nil : "#{Spree::Config[:site_url]}/orders/#{order.number}?r=1"
+      redirect_url = Rails.env.development? ? nil : "#{Spree::Config[:site_url]}/orders/#{order.number}?obrigado"
 
       pag_seguro_payment = ::PagSeguro::Payment.new(
         Order.pag_seguro_payment_method.preferred_email,
