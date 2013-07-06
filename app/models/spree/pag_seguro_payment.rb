@@ -12,7 +12,7 @@ module Spree
         Order.pag_seguro_payment_method.preferred_email,
         Order.pag_seguro_payment_method.preferred_token,
         redirect_url: redirect_url,
-        extra_amount: format("%.2f", payment.order.adjustments.eligible.credit.sum(:amount)),
+        extra_amount: order_extra_amount(order),
         max_age: Order.pag_seguro_payment_method.preferred_max_age,
         id: order.id)
 
@@ -38,12 +38,18 @@ module Spree
       self.save
     end
     
+    def order_extra_amount(order)
+      discount = order.adjustments.eligible.credit.sum(:amount)
+      discount -= 15 if order.sacola && order.sacola.price == 0
+      format("%.2f", discount)
+    end
+    
     def order_items(order)
       order.line_items.map do |item|
         pag_seguro_item = ::PagSeguro::Item.new
         pag_seguro_item.id = item.id
         pag_seguro_item.description = item.product.name
-        pag_seguro_item.amount = format("%.2f", item.price.round(2))
+        pag_seguro_item.amount = (item.price == 0 && item.order.sacola ? "15.00" : format("%.2f", item.price.round(2)))
         pag_seguro_item.quantity = item.quantity
         pag_seguro_item.weight = (item.product.weight * 1000).to_i if item.product.weight.present?
         pag_seguro_item.shipping_cost = "0.00"
@@ -52,7 +58,7 @@ module Spree
     end
       
     def order_charges(order)
-      order.adjustments.eligible.positive_charge.map do |item|
+     order.adjustments.eligible.positive_charge.map do |item|
         pag_seguro_item = ::PagSeguro::Item.new
         pag_seguro_item.id = item.id
         pag_seguro_item.description = item.label
