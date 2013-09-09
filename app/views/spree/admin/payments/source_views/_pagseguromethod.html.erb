@@ -28,7 +28,7 @@
 			<% query = PagSeguro::Query.new(email, token, notification.transaction_id) if query_pagseguro && notification.transaction_id %>
 			<tr>
 				<td><%= pretty_time(notification.created_at) %></td>
-				<td><%= query.payment_method.name if query %></td>
+				<td><%= query && query.payment_method.code != 701 ? query.payment_method.name : "Depósito em conta Banco do Brasil" %></td>
 	      <td><%= t("pagseguro_status.#{PagSeguro::Transaction.status_for(notification.status.to_i)}") %></td>
 	      <td><%= notification.transaction_id %></td>
 	      <td><%= notification.notification_code %></td>
