@@ -40,7 +40,9 @@ module Spree
     
     def order_extra_amount(order)
       discount = order.adjustments.eligible.credit.sum(:amount)
-      discount -= 15 if order.sacola && order.sacola.price == 0
+      price = order.
+      discount -= order.sacola.variant.original_price if order.sacola && order.sacola.price == 0
+      discount -= order.embalagem.variant.original_price if order.embalagem && order.embalagem.price == 0
       format("%.2f", discount)
     end
     
@@ -49,7 +51,8 @@ module Spree
         pag_seguro_item = ::PagSeguro::Item.new
         pag_seguro_item.id = item.id
         pag_seguro_item.description = item.product.name
-        pag_seguro_item.amount = (item.price == 0 && item.order.sacola ? "15.00" : format("%.2f", item.price.round(2)))
+        price = item.price == 0 ? item.variant.original_price : item.price 
+        pag_seguro_item.amount = format("%.2f", price.round(2))
         pag_seguro_item.quantity = item.quantity
         pag_seguro_item.weight = (item.product.weight * 1000).to_i if item.product.weight.present?
         pag_seguro_item.shipping_cost = "0.00"
