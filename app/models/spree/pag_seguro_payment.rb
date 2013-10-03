@@ -40,7 +40,6 @@ module Spree
     
     def order_extra_amount(order)
       discount = order.adjustments.eligible.credit.sum(:amount)
-      price = order.
       discount -= order.sacola.variant.original_price if order.sacola && order.sacola.price == 0
       discount -= order.embalagem.variant.original_price if order.embalagem && order.embalagem.price == 0
       format("%.2f", discount)
