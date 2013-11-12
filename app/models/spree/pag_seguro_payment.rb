@@ -28,7 +28,7 @@ module Spree
                                     type: ::PagSeguro::Shipping::UNIDENTIFIED, 
                                     state: order.ship_address.state.abbr, 
                                     city: order.ship_address.city, 
-                                    postal_code: order.ship_address.zipcode, 
+                                    postal_code: order.ship_address.zipcode.gsub(/\D/,''), 
                                     street: order.ship_address.address1,
                                     number: order.ship_address.address_number,
                                     complement: order.ship_address.address2)
@@ -38,10 +38,8 @@ module Spree
       self.save
     end
     
-    def order_extra_amount(order)
+    def order_extra_amount(order)     
       discount = order.adjustments.eligible.credit.sum(:amount)
-      discount -= order.sacola.variant.original_price if order.sacola && order.sacola.price == 0
-      discount -= order.embalagem.variant.original_price if order.embalagem && order.embalagem.price == 0
       format("%.2f", discount)
     end
     
