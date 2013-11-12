@@ -1,0 +1,23 @@
+/*
+ *= require store/spree_core
+*/
+
+#order_bill_address_attributes_phone_ddd, #order_ship_address_attributes_phone_ddd {
+	float: left;
+	width: 9%;
+	margin-right: 1%;
+}
+
+#order_bill_address_attributes_phone, #order_ship_address_attributes_phone  {
+	float: left;
+	width: 75%;
+}
+label[for=order_bill_address_attributes_phone_ddd].error, label[for=order_ship_address_attributes_phone_ddd].error {
+	position:absolute;
+	margin-top: 34px
+}
+
+#bphone, #sphone {
+	height: auto;
+	min-height: 55px;
+}
