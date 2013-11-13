@@ -19,6 +19,21 @@ module Spree
         end
       end
       
+      if notification.disputed?
+        Order.transaction do
+          @order = Spree::Order.find(notification.id)
+          @order.payments.last.started_processing
+        end
+      end
+
+      if notification.returned? or notification.cancelled?
+        Order.transaction do
+          @order = Spree::Order.find(notification.id)
+          @order.payments.last.started_processing
+          @order.payments.last.failure
+        end
+      end
+      
       render nothing: true, head: :ok
     end
     
