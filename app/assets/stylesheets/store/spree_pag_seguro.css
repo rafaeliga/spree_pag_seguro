@@ -14,7 +14,7 @@
 }
 label[for=order_bill_address_attributes_phone_ddd].error, label[for=order_ship_address_attributes_phone_ddd].error {
 	position:absolute;
-	margin-top: 34px
+	margin-top: 40px
 }
 
 #bphone, #sphone {
