@@ -4,6 +4,7 @@ pt-BR:
   street_address: "Logradouro"
   address_number: "Número"
   zip: "CEP"
+  token: "Token"
   please_select_your_country: "Por favor, escolha seu país"
   please_enter_valid_zip: "Por favor, coloque seu código postal."
   zip_code_if_you_have_one: "Código postal" 
