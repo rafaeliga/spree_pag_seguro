@@ -31,6 +31,7 @@ module Spree
                                     postal_code: order.ship_address.zipcode.gsub(/\D/,''), 
                                     street: order.ship_address.address1,
                                     number: order.ship_address.address_number,
+                                    district: order.ship_address.address_district,
                                     complement: order.ship_address.address2)
                                     
       self.code = pag_seguro_payment.code

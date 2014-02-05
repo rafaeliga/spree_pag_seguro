@@ -29,16 +29,18 @@
         <%= bill_form.label :address_number, t(:address_number) %><span class="required">*</span><br />
         <%= bill_form.text_field :address_number, :class => 'required' %>
       </p>
-      <p class="field" id="baddress2">
+	  <p class="field" id="baddress2">
         <%= bill_form.label :address2, t(:street_address_2) %><br />
         <%= bill_form.text_field :address2 %>
       </p>
-
       <p class="field" id="bcity">
         <%= bill_form.label :city, t(:city) %><span class="required">*</span><br />
         <%= bill_form.text_field :city, :class => 'required' %>
       </p>
-
+      <p class="field" id="bdistrict">
+        <%= bill_form.label :address_district, t(:address_district) %><br />
+        <%= bill_form.text_field :address_district %>
+      </p>
       <p class="field" id="bcountry">
         <%= bill_form.label :country_id, t(:country) %><span class="required">*</span><br />
         <span id="bcountry">
@@ -129,12 +131,14 @@
         <%= ship_form.label :address2, t(:street_address_2) %><br />
         <%= ship_form.text_field :address2 %>
       </p>
-
       <p class="field" id="scity">
         <%= ship_form.label :city, t(:city) %><span class="required">*</span><br />
         <%= ship_form.text_field :city, :class => 'required' %>
       </p>
-
+      <p class="field" id="sdistrict">
+        <%= ship_form.label :address_district, t(:address_district) %><br />
+        <%= ship_form.text_field :address_district %>
+      </p>
       <p class="field" id="scountry">
         <%= ship_form.label :country_id, t(:country) %><span class="required">*</span><br />
         <span id="scountry">

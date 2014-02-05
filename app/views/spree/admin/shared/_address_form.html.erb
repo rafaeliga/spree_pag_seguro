@@ -50,14 +50,21 @@
       <td colspan="3"><%= f.text_field :address2, :class => "fullwidth" %></td>
     </tr>
     <tr class="<%= name == t(:shipping_address) ? 'shipping-row' : 'billing-row' %>">
-      <td class="lbl-col">
+	  <td class="lbl-col">
         <%= f.label :city, t(:city) + ':' %>
       </td>
       <td colspan="3"><%= f.text_field :city %></td>
-      <td class="lbl-col">
+      
+	  <td class="lbl-col">
+        <%= f.label :address_district, t(:address_district) + ':' %>
+      </td>
+	  <td colspan="3"><%= f.text_field :address_district %></td>
+    </tr>
+    <tr class="<%= name == t(:shipping_address) ? 'shipping-row' : 'billing-row' %>"> 
+	  <td class="lbl-col">
         <%= f.label :zipcode, t(:zip) + ':' %>
       </td>
-      <td colspan="3"><%= f.text_field :zipcode, :style => 'width: 100px;' %></td>
+      <td colspan="6"><%= f.text_field :zipcode, :style => 'width: 100px;' %></td>
     </tr>
     <tr class="<%= name == t(:shipping_address) ? 'shipping-row' : 'billing-row' %>">
       <td class="lbl-col">
