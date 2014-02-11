@@ -20,8 +20,8 @@
       <th><%= Spree::PaymentNotification.human_attribute_name :notification_code %></th>
     </tr>
 		<% if payment.payment_method.instance_of? Spree::PaymentMethod::PagSeguroMethod %>
-			<% email = Spree::Order.pag_seguro_payment_method.preferred_email %>
-			<% token = Spree::Order.pag_seguro_payment_method.preferred_token %>
+			<% email = payment.order.pag_seguro_payment_method.preferred_email %>
+			<% token = payment.order.pag_seguro_payment_method.preferred_token %>
 			<% query_pagseguro = true %>
 		<% end %>
 		<% payment.order.payment_notifications.each do |notification| %>
