@@ -5,13 +5,26 @@ module Spree
     attr_protected
     
     def self.create_from_params(params)
-      order = Order.where(id: params[:order_id]).first
-      
-      email = order.pag_seguro_payment_method.preferred_email
-      token = order.pag_seguro_payment_method.preferred_token
       
       notification_code = params[:notificationCode]
-      notification = ::PagSeguro::Notification.new(email, token, notification_code)
+      notification = nil
+      
+      # Test all pagseguro payment_methods credencials
+      Order.list_pag_seguro_payment_methods.each do |pm|
+        email = pm.preferred_email
+        token = pm.preferred_token
+        
+        begin
+          notification = ::PagSeguro::Notification.new(email, token, notification_code)
+        rescue
+        end
+        
+        break unless notification.nil? 
+      end
+      
+      
+      
+      
 
       self.create!(
         params: params,
