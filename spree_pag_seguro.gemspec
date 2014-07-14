@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = version
   s.summary     = 'Spree extension for integration with PagSeguro payment'
   s.description = 'Spree extension for integration with PagSeguro payment. Based on spree_pp_website_standart gem'
-  s.required_ruby_version = '>= 1.9.2'
+  s.required_ruby_version = '>= 1.9.3'
 
   s.author            = 'Gregg Pollack, Sean Schofield, Tomasz Stachewicz, Buddhi DeSilva'
   s.email             = 'tomekrs@o2.pl'
@@ -17,13 +17,13 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_dependency 'spree_core', '~> 1.3.3'
+  s.add_dependency 'spree_core', '~> 2.2.0'
   s.add_dependency 'pag_seguro', '>= 0.4.1'
   s.add_dependency 'brcpfcnpj',  '~> 3.3.0'
 
-  s.add_development_dependency 'capybara', '1.0.1'
+  s.add_development_dependency 'capybara'
   s.add_development_dependency 'factory_girl'
   s.add_development_dependency 'ffaker'
-  s.add_development_dependency 'rspec-rails',  '~> 2.7'
+  s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'sqlite3'
 end
