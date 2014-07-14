@@ -4,7 +4,8 @@ module Spree
     skip_before_filter :restriction_access
     
     def notify
-      notification = Spree::PaymentNotification.create_from_params(params)
+      notify_params = params.permit(:notificationType, :notificationCode)
+      notification = Spree::PaymentNotification.create_from_params(notify_params)
       
       if notification.approved?
         Order.transaction do
