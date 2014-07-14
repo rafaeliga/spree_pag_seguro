@@ -5,8 +5,8 @@ module SpreePagSeguro
       source_root File.expand_path("../../../../..", __FILE__)
       
       def add_stylesheets
-        inject_into_file 'app/assets/stylesheets/store/all.css', " *= require store/spree_pag_seguro\n", :before => /\*\//, :verbose => true
-        inject_into_file 'app/assets/stylesheets/admin/all.css', " *= require admin/spree_pag_seguro\n", :before => /\*\//, :verbose => true
+        inject_into_file 'vendor/assets/stylesheets/spree/frontend/all.css', " *= require store/spree_pag_seguro\n", :before => /\*\//, :verbose => true
+        inject_into_file 'vendor/assets/stylesheets/spree/backend/all.css', " *= require admin/spree_pag_seguro\n", :before => /\*\//, :verbose => true
       end
       
       def add_migrations
