@@ -17,12 +17,12 @@ module Spree
         id: order.id)
 
       pag_seguro_payment.items = order_items(order) + order_charges(order)
-      
+
       pag_seguro_payment.sender = ::PagSeguro::Sender.new(
                                     name: order.name, 
                                     email: order.email, 
-                                    phone_number: order.ship_address.phone,
-                                    phone_ddd: order.ship_address.phone_ddd)
+                                    phone_number: order.ship_address.phone.gsub(/\D/,'').gsub(/^\d{2}/,''),
+                                    phone_ddd: order.ship_address.phone.gsub(/\D/,'')[/^\d{2}/] )
                                     
       pag_seguro_payment.shipping = ::PagSeguro::Shipping.new(
                                     type: ::PagSeguro::Shipping::UNIDENTIFIED, 
