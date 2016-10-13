@@ -3,7 +3,6 @@ pt-BR:
   cpf: "CPF"
   street_address: "Logradouro"
   address_number: "Número"
-  address_district: "Bairro"
   zip: "CEP"
   token: "Token"
   please_select_your_country: "Por favor, escolha seu país"

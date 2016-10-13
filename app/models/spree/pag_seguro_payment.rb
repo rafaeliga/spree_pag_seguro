@@ -9,11 +9,11 @@ module Spree
       redirect_url = Rails.env.development? ? nil : "#{Spree::Config[:site_url]}/orders/#{order.number}?obrigado"
 
       pag_seguro_payment = ::PagSeguro::Payment.new(
-        Order.pag_seguro_payment_method.preferred_email,
-        Order.pag_seguro_payment_method.preferred_token,
+        order.pag_seguro_payment_method.preferred_email,
+        order.pag_seguro_payment_method.preferred_token,
         redirect_url: redirect_url,
         extra_amount: order_extra_amount(order),
-        max_age: Order.pag_seguro_payment_method.preferred_max_age,
+        max_age: order.pag_seguro_payment_method.preferred_max_age,
         id: order.id)
 
       pag_seguro_payment.items = order_items(order) + order_charges(order)
@@ -31,7 +31,6 @@ module Spree
                                     postal_code: order.ship_address.zipcode.gsub(/\D/,''), 
                                     street: order.ship_address.address1,
                                     number: order.ship_address.address_number,
-                                    district: order.ship_address.address_district,
                                     complement: order.ship_address.address2)
                                     
       self.code = pag_seguro_payment.code
