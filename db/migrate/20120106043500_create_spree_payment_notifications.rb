@@ -1,4 +1,4 @@
-class CreateSpreePaymentNotifications < ActiveRecord::Migration
+class CreateSpreePaymentNotifications < SpreeExtension::Migration[4.2]
   def change
     create_table :spree_payment_notifications do |t|
       t.text :params
