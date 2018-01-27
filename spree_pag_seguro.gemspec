@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.description = 'Spree extension for integration with PagSeguro payment. Based on spree_pp_website_standart gem'
   s.required_ruby_version = '>= 1.9.3'
 
-  s.author            = 'Gregg Pollack, Sean Schofield, Tomasz Stachewicz, Buddhi DeSilva'
+  s.author            = 'Gregg Pollack, Sean Schofield, Tomasz Stachewicz, Buddhi DeSilva, Lucas Mousinho'
   s.email             = 'tomekrs@o2.pl'
   s.homepage          = 'http://github.com/heavenstudio/spree-pag_seguro'
 
@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'spree_core', '~> 3.4.4'
-  s.add_dependency 'pag_seguro', '>= 0.4.1'
+  s.add_dependency 'pag_seguro', '>= 0.5.6'
   s.add_dependency 'brcpfcnpj',  '~> 3.3.0'
 
   s.add_development_dependency 'capybara'
